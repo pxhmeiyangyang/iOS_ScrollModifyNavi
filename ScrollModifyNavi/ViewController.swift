@@ -14,8 +14,11 @@ let StatusBar_Height = UIApplication.shared.statusBarFrame.height
 /// 滚动修改 导航栏
 class ViewController: UIViewController {
 
-    
-    
+    //实现思路
+    //1、用一张图片做头部的背景，同时记录原始的frame
+    //2、写一个tableview添加一个跟头部背景大小一致的透明头部，注意tableView的背景也是透明的
+    //3、在scroll函数中通过计算变更颜色，实现方式有两种1、用navigation取点是statusBar不能同时渐变2、隐藏navi 自定义navi 可以完美实现效果
+    //目前当前代码使用的是方式1
     /// 1.用imageView作头部背景图片，并保存初始frame
     lazy var bgIM: UIImageView = {
         let view = UIImageView.init(image: UIImage.init(named: "SK_JN_bg"))
