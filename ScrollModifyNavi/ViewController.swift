@@ -9,8 +9,8 @@
 import UIKit
 
 let Screen_Width = UIScreen.main.bounds.width
-let Screen_height = UIScreen.main.bounds.height
-
+let Screen_Height = UIScreen.main.bounds.height
+let StatusBar_Height = UIApplication.shared.statusBarFrame.height
 /// 滚动修改 导航栏
 class ViewController: UIViewController {
 
@@ -71,18 +71,19 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource{
         if offsetY < 100 {
             //滑到底部之前
             let colorAlpha = offsetY / 160
-            self.navigationController?.navigationBar.backgroundColor = UIColor.red.withAlphaComponent(colorAlpha)
+            self.navigationController?.navigationBar.backgroundColor = UIColor.white.withAlphaComponent(colorAlpha)
             self.navigationController?.title = "测试标题"
         }else{
             //滑动超过导航栏底部
-            self.navigationController?.navigationBar.backgroundColor = UIColor.red
+            self.navigationController?.navigationBar.backgroundColor = UIColor.white
         }
         //处理图片放大效果、网上移动的效果
         if offsetY > 0{
             //往上缩小
             self.bgIM.frame = {
                 var bgFrame = self.originalFame
-                bgFrame.origin.y = self.originalFame.origin.y - offsetY
+                let space = offsetY > StatusBar_Height + 44 ? StatusBar_Height + 44 : offsetY
+                bgFrame.origin.y = self.originalFame.origin.y - space
                 return bgFrame
             }()
         }else{
